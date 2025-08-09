@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing 3.0 | Transforma tu Juego con los Packs de Poker de Agosto</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* --- Base and Background --- */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #020617; /* Slate 950 */
+            background-image: 
+                radial-gradient(circle at 15% 25%, rgba(124, 58, 237, 0.2), transparent 40%),
+                radial-gradient(circle at 85% 75%, rgba(250, 204, 21, 0.15), transparent 40%);
+            color: #e2e8f0; /* Slate 200 */
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- Typography and Effects --- */
+        .text-glow {
+            text-shadow: 0 0 12px rgba(167, 139, 250, 0.6);
+        }
+        .title-pulse {
+            animation: pulse-glow 3s infinite ease-in-out;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { text-shadow: 0 0 15px rgba(250, 204, 21, 0.6); }
+            50% { text-shadow: 0 0 30px rgba(250, 204, 21, 1); }
+        }
+        .month-badge {
+            background-image: linear-gradient(to right, #facc15, #fbbf24);
+            color: #1e293b;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 900;
+            margin-left: 8px;
+            display: inline-block;
+            box-shadow: 0 2px 10px rgba(250, 204, 21, 0.4);
+        }
+
+        /* --- Card Styling --- */
+        .card {
+            background-color: rgba(15, 23, 42, 0.6); /* Slate 900 with alpha */
+            border: 1px solid rgba(55, 65, 81, 0.5);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            border-radius: 1.25rem; /* More rounded */
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+        .card-micro:hover { border-color: #facc15; }
+        .card-pro:hover { border-color: #a78bfa; }
+        .card-elite:hover { border-color: #f59e0b; }
+
+        /* --- Buttons --- */
+        .btn {
+            transition: all 0.3s ease;
+            border-radius: 9999px;
+            font-weight: 700;
+            padding: 0.875rem 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .btn-primary {
+            background-image: linear-gradient(to right, #6366f1, #8b5cf6);
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3), inset 0 2px 4px rgba(255,255,255,0.2);
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 7px 25px rgba(99, 102, 241, 0.5), inset 0 2px 4px rgba(255,255,255,0.2);
+        }
+        .btn-secondary {
+            background-image: linear-gradient(to right, #facc15, #fb923c);
+            color: #1f2937;
+            box-shadow: 0 4px 20px rgba(250, 204, 21, 0.3), inset 0 2px 4px rgba(255,255,255,0.3);
+        }
+        .btn-secondary:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 7px 25px rgba(250, 204, 21, 0.5), inset 0 2px 4px rgba(255,255,255,0.3);
+        }
+
+        /* --- Countdown & Badges --- */
+        .pulse-animation {
+            animation: pulse-box-glow 2.5s infinite ease-in-out;
+            border-radius: 1rem;
+            border: 1px solid rgba(250, 204, 21, 0.5);
+        }
+        @keyframes pulse-box-glow {
+            0%, 100% { box-shadow: 0 0 15px rgba(250, 204, 21, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(250, 204, 21, 0.6); }
+        }
+        .badge-recommended {
+            background-image: linear-gradient(to right, #facc15, #fb923c);
+            color: #1f2937;
+            font-weight: 800;
+            padding: 6px 14px;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            box-shadow: 0 2px 10px rgba(250, 204, 21, 0.4);
+        }
+        .badge-elite {
+            background-image: linear-gradient(to right, #f59e0b, #eab308);
+        }
+
+        /* --- Modal Styling --- */
+        .modal { transition: opacity 0.3s ease; }
+        .modal-content {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            max-height: 90vh; 
+            overflow-y: auto;
+            background-color: #0f172a; /* Slate 900 */
+            border: 1px solid #334155; /* Slate 700 */
+        }
+        .modal-price-original {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #64748b; /* Slate 500 */
+            text-decoration: line-through;
+        }
+        .modal-price-offer {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1;
+            color: #facc15;
+            text-shadow: 0 0 15px rgba(250, 204, 21, 0.6);
+        }
+        .tab-btn {
+            position: relative;
+            z-index: 10;
+            transition: all 0.3s ease-in-out;
+            white-space: nowrap;
+            flex-shrink: 0;
+            padding: 8px 16px;
+            border-radius: 9999px;
+            border: 2px solid #475569; /* Slate 600 */
+            background-color: transparent;
+        }
+        .tab-btn:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: #94a3b8; /* Slate 400 */
+        }
+        .tab-btn.active {
+            color: #0f172a;
+            font-weight: 700;
+            border: 2px solid transparent;
+        }
+        .tab-btn.active-micro {
+            background-image: linear-gradient(to right, #facc15, #fbbf24);
+            box-shadow: 0 0 20px rgba(250, 204, 21, 0.6);
+        }
+        .tab-btn.active-pro {
+            background-image: linear-gradient(to right, #818cf8, #a78bfa);
+            box-shadow: 0 0 20px rgba(167, 139, 250, 0.6);
+        }
+        .tab-btn.active-elite {
+            background-image: linear-gradient(to right, #fb923c, #f59e0b);
+            box-shadow: 0 0 20px rgba(251, 146, 60, 0.6);
+        }
+        .list-check {
+            background-color: rgba(34, 197, 94, 0.1);
+            color: #4ade80;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-right: 0.75rem;
+        }
+        /* New styles for overview section */
+        .overview-container {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(55, 65, 81, 0.6);
+            border-radius: 1.5rem;
+            padding: 2rem;
+        }
+        .overview-card {
+            background-color: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        .overview-card:hover {
+            transform: translateY(-5px);
+            border-color: #6366f1;
+        }
+        .overview-card-modes {
+            font-size: 0.875rem;
+            color: #94a3b8;
+            background-color: #1e293b;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-weight: 600;
+            margin-top: 8px;
+            display: inline-block;
+        }
+        .modal-catalog-link {
+            transition: background-color 0.3s, color 0.3s;
+            border: 1px solid #64748b;
+            color: #94a3b8;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+        }
+        .modal-catalog-link:hover {
+            background-color: #64748b;
+            color: white;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="container mx-auto px-4 py-12 md:py-20 max-w-7xl">
+        <!-- SECTION 1: HEADER -->
+        <header class="text-center mb-20">
+            <h1 class="text-5xl md:text-7xl font-black text-yellow-300 mb-3 uppercase tracking-tight title-pulse">
+                CURSOS POKER PARA TODOS
+            </h1>
+            <p class="text-2xl md:text-4xl font-black text-white text-glow mb-6 uppercase tracking-tight">
+                DEJA DE ADIVINAR. DOMINA LAS MESAS.
+            </p>
+            <p class="text-xl md:text-2xl text-indigo-300 font-light max-w-4xl mx-auto">
+                La estrategia probada para aplastar tus límites y multiplicar tu bankroll. Una oferta exclusiva de <span class="month-badge">AGOSTO</span> para nuestra comunidad, impulsada por la precisión de <span class="font-semibold text-yellow-300">METAPOKER</span>.
+            </p>
+        </header>
+
+        <!-- SECTION 2: PACKS OVERVIEW (As per image 1) -->
+        <section class="mb-24">
+            <div class="overview-container max-w-5xl mx-auto">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">¿Qué Pack de Cursos es para ti?</h2>
+                    <p class="text-lg text-slate-300 max-w-3xl mx-auto">
+                        Hemos creado tres rutas de éxito probadas, pensadas para cada tipo de jugador. Descubre la que se ajusta a tu nivel y tus objetivos.
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="overview-card text-center">
+                        <h3 class="text-xl font-bold text-yellow-300 mb-2">Pack Micro</h3>
+                        <p class="text-sm text-slate-400 flex-grow">Perfecto para quienes buscan salir de los niveles bajos y construir su bankroll.</p>
+                        <span class="overview-card-modes">CASH GAMES & MTT</span>
+                    </div>
+                    <div class="overview-card text-center">
+                        <h3 class="text-xl font-bold text-purple-300 mb-2">Pack PRO</h3>
+                        <p class="text-sm text-slate-400 flex-grow">Ideal para jugadores que ya baten los micros y quieren escalar a niveles rentables.</p>
+                        <span class="overview-card-modes">CASH GAMES & MTT</span>
+                    </div>
+                    <div class="overview-card text-center">
+                        <h3 class="text-xl font-bold text-amber-400 mb-2">Pack Élite</h3>
+                        <p class="text-sm text-slate-400 flex-grow">Para quienes exigen el 100% de nuestro contenido y un mentoría intensiva.</p>
+                        <span class="overview-card-modes">CASH GAMES & MTT</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: TESTIMONIALS (As per image 2) -->
+        <section class="mb-24">
+            <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-12">Resultados Reales de Jugadores como Tú</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card rounded-xl p-6 border-l-4 border-yellow-400"><p class="text-slate-300 mb-4">"El Pack Micro me dio una base de estudio increíble. Pero lo que realmente me hizo pasar de NL5 a NL25 fue la herramienta de <span class="font-bold text-yellow-300">METAPOKER</span>, que me ayudó a entender el 'porqué' de cada jugada. Es un complemento indispensable."</p><div class="flex items-center"><div class="w-10 h-10 rounded-full mr-4 flex-shrink-0 flex items-center justify-center bg-indigo-500 text-white font-bold">JG</div><div><p class="font-bold text-white">Javier G.</p><p class="text-sm text-yellow-400">Pack Micro-Límites</p></div></div></div>
+                <div class="card rounded-xl p-6 border-l-4 border-purple-400"><p class="text-slate-300 mb-4">"El Pack PRO me ofreció el contenido avanzado que necesitaba, pero <span class="font-bold text-yellow-300">METAPOKER</span> transformó mi forma de procesar la información. Su trabajo personalizado no se compara con el de otras comunidades; es la clave."</p><div class="flex items-center"><div class="w-10 h-10 rounded-full mr-4 flex-shrink-0 flex items-center justify-center bg-purple-500 text-white font-bold">MP</div><div><p class="font-bold text-white">Marta P.</p><p class="text-sm text-purple-300">Pack PRO</p></div></div></div>
+                <div class="card rounded-xl p-6 border-l-4 border-amber-400"><p class="text-slate-300 mb-4">"Con el pack aprendí a ser consistente, pero con la ayuda de <span class="font-bold text-yellow-300">METAPOKER</span> pude pulir mi juego para llegar a las mesas finales con más confianza. El mejor aliado para pasar de un jugador promedio a uno que compite."</p><div class="flex items-center"><div class="w-10 h-10 rounded-full mr-4 flex-shrink-0 flex items-center justify-center bg-yellow-500 text-slate-900 font-bold">CR</div><div><p class="font-bold text-white">Carlos R.</p><p class="text-sm text-yellow-400">Pack Micro-Límites (MTT)</p></div></div></div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: WHY US (As per image 2) -->
+        <section class="mb-24">
+            <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-12">¿Qué te Separa de los Profesionales?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="card rounded-lg p-6 text-center"><span class="text-5xl block mb-4">🎯</span><h3 class="text-xl font-bold text-indigo-300 mb-2">Estrategia Precisa</h3><p class="text-slate-300">Basta de jugar por intuición. <span class="font-bold text-yellow-300 text-glow">METAPOKER</span> te ayuda a transformar el contenido del pack en un sistema probado y adaptable.</p></div>
+                <div class="card rounded-lg p-6 text-center"><span class="text-5xl block mb-4">📈</span><h3 class="text-xl font-bold text-indigo-300 mb-2">Resultados Medibles</h3><p class="text-slate-300">Nuestro enfoque está diseñado para que veas un impacto directo en tu gráfica, y <span class="font-bold text-yellow-300">METAPOKER</span> es la herramienta que te da los datos para medir y optimizar.</p></div>
+                <div class="card rounded-lg p-6 text-center"><span class="text-5xl block mb-4">🧠</span><h3 class="text-xl font-bold text-indigo-300 mb-2">Mindset Ganador</h3><p class="text-slate-300">Te enseñamos a gestionar la varianza, y con <span class="font-bold text-yellow-300">METAPOKER</span> tienes el apoyo constante para fortalecer tu mentalidad y evitar el tilt.</p></div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: PRICING (As per image 3) -->
+        <section id="pricing-section">
+            <div class="text-center mb-12">
+                <div class="bg-slate-900/50 p-4 max-w-lg mx-auto pulse-animation">
+                    <p class="text-yellow-300 font-bold text-2xl md:text-3xl mb-2">¡OFERTA EXCLUSIVA DE AGOSTO!</p>
+                    <div id="countdown" class="text-3xl md:text-4xl font-bold text-white tracking-wider">--:--:--:--</div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10 items-stretch mb-24">
+                <!-- Pack Micro-Límites Card -->
+                <div class="card card-micro rounded-2xl p-6 md:p-8 flex flex-col text-center">
+                    <h2 class="text-3xl md:text-4xl font-bold text-yellow-300 mb-2">🚀 Pack Micro</h2>
+                    <p class="text-lg text-slate-300 mb-6 flex-grow"><span class="font-bold text-white">Ideal para ti si:</span> Estás estancado en NL2-NL10 o torneos de buy-in bajo.</p>
+                    <ul class="text-left text-slate-200 text-base space-y-4 mb-8 w-full">
+                        <li class="flex items-center"><span class="list-check">✓</span><span>Domina los fundamentos y deja de perder dinero.</span></li>
+                        <li class="flex items-center"><span class="list-check">✓</span><span>Aprende estrategias para aplastar a los recreacionales.</span></li>
+                        <li class="flex items-center"><span class="list-check">✓</span><span>Construye tu bankroll con un método paso a paso.</span></li>
+                        <li class="flex items-center"><span class="list-check">🎁</span><span class="ml-2"><span class="font-bold text-yellow-300">BONUS:</span> Grupo VIP 'Precisión al Instante'.</span></li>
+                    </ul>
+                    <button onclick="openModal('Micro')" class="btn btn-primary mt-auto text-white">¡Ver Rutas y Precios!</button>
+                </div>
+
+                <!-- Pack PRO Card -->
+                <div class="card card-pro rounded-2xl p-6 md:p-8 flex flex-col text-center relative transform lg:scale-105">
+                    <div class="absolute -top-5 left-1/2 -translate-x-1/2"><span class="badge-recommended">🔥 MÁS POPULAR</span></div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-purple-300 mb-2">🏆 Pack PRO</h2>
+                    <p class="text-lg text-slate-300 mb-6 flex-grow"><span class="font-bold text-white">Ideal para ti si:</span> Ya bates los micros y quieres dominar NL25-NL50+ o torneos de buy-in medio-alto.</p>
+                    <ul class="text-left text-slate-200 text-base space-y-4 mb-8 w-full">
+                        <li class="flex items-center"><span class="list-check">✓</span><span>Domina estrategias avanzadas para escalar límites.</span></li>
+                        <li class="flex items-center"><span class="list-check">✓</span><span>Conviértete en un regular ganador y temido.</span></li>
+                        <li class="flex items-center"><span class="list-check">✓</span><span>Accede a contenido profesional para Cash y MTTs.</span></li>
+                        <li class="flex items-center"><span class="list-check">🎁</span><span class="ml-2"><span class="font-bold text-yellow-300">BONUS:</span> 2 Sesiones de Mentoría 1 a 1 con <span class="font-bold text-purple-300">METAPOKER</span>.</span></li>
+                    </ul>
+                    <button onclick="openModal('PRO')" class="btn btn-primary mt-auto text-white">¡Ver Rutas y Precios!</button>
+                </div>
+
+                <!-- Pack Elite Card -->
+                <div class="card card-elite rounded-2xl p-6 md:p-8 flex flex-col text-center">
+                    <h2 class="text-3xl md:text-4xl font-bold text-amber-400 mb-2">👑 Pack Élite</h2>
+                    <p class="text-lg text-slate-300 mb-6 flex-grow"><span class="font-bold text-white">Ideal para ti si:</span> Quieres el 100% de nuestro contenido y un servicio de mentoría intensivo.</p>
+                    <ul class="text-left text-slate-200 text-base space-y-4 mb-8 w-full">
+                        <li class="flex items-center"><span class="list-check">✓</span><span>Acceso al <span class="font-bold">100% de los cursos</span> y modalidades.</span></li>
+                        <li class="flex items-center"><span class="list-check">✓</span><span>Más de <span class="font-bold">1000 horas de contenido</span> de estudio.</span></li>
+                        <li class="flex items-center"><span class="list-check">✓</span><span><span class="font-bold">26 horas</span> de mentoría con <span class="font-bold text-yellow-300">METAPOKER</span>.</span></li>
+                        <li class="flex items-center"><span class="list-check">🎁</span><span class="ml-2"><span class="font-bold text-yellow-300">BENEFICIO:</span> Seguimiento personalizado y plan a medida.</span></li>
+                    </ul>
+                    <button onclick="openModal('Elite')" class="btn btn-primary mt-auto text-white">¡Ver Ruta Definitiva!</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: FOOTER -->
+        <footer class="text-center text-slate-400 text-sm mt-20 pt-8 border-t border-slate-800">
+            <p>&copy; 2025 Cursos Poker Para Todos. Todos los derechos reservados.</p>
+            <p class="mt-2">¿Tienes dudas? <a href="https://wa.link/svi989" target="_blank" class="text-indigo-400 hover:underline font-semibold">Contáctanos por WhatsApp</a></p>
+        </footer>
+    </div>
+
+    <!-- MODAL -->
+    <div id="purchase-modal" class="modal fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center p-4 sm:p-6 md:p-8 opacity-0 pointer-events-none z-50" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div id="modal-backdrop" class="fixed inset-0" onclick="closeModal()"></div>
+        <div id="modal-content" class="modal-content card rounded-lg p-0 w-full max-w-3xl transform scale-95 opacity-0 relative">
+            <button onclick="closeModal()" aria-label="Cerrar modal" class="absolute top-3 right-3 text-slate-400 hover:text-white z-20 p-2 rounded-full hover:bg-slate-700 transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <div class="p-6 md:p-8">
+                <div id="modal-header" class="text-center mb-6">
+                    <h3 id="modal-title" class="text-2xl md:text-3xl font-bold text-white mb-2"></h3>
+                    <div id="modal-price" class="modal-price-container mb-1"></div>
+                    <p id="modal-offer-text" class="text-sm font-semibold text-yellow-400 mt-2 hidden">¡Esta es una oferta exclusiva de Agosto!</p>
+                </div>
+                <div id="modal-tabs" class="flex flex-wrap justify-center gap-x-4 gap-y-3 mb-6"></div>
+                <div id="modal-route-content" class="text-left"></div>
+            </div>
+            <div class="mt-4 p-6 md:p-8 bg-slate-900/50 border-t border-slate-700">
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a id="modal-cta-whatsapp" href="#" target="_blank" class="btn btn-primary text-white w-full flex items-center justify-center text-center">
+                        <span class="text-2xl mr-2">💬</span> ¡Quiero esta Ruta!
+                    </a>
+                    <a id="modal-cta-catalog" href="#" target="_blank" class="btn bg-slate-600 hover:bg-slate-700 text-white w-full flex items-center justify-center transition-colors text-center">
+                        <span class="text-2xl mr-2">📚</span> Ver Catálogo
+                    </a>
+                </div>
+                <p class="text-center text-xs text-slate-400 mt-4">Pago seguro y acceso inmediato al contenido.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const packData = {
+            'Micro': {
+                title: 'Pack Micro-Límites',
+                price: { original: '€120', offer: '€57' },
+                colorClass: 'active-micro',
+                routes: {
+                    ruta_express: { name: 'Ruta Express ⚡', catalogUrl: 'https://drive.google.com/file/d/1-XezF80BC0brywWQNJnzhLdS_aVwxfQa/view?usp=sharing', whatsapp: 'https://wa.link/glxm2c', description: 'Método directo para batir los micros con máxima eficiencia. Ideal para quienes buscan resultados rápidos y un enfoque práctico.', modules: ['Estrategia preflop sólida', 'Juego postflop simplificado', 'Teoría / Práctica', 'Mindset ajustado al metagame.'], cons: ['Menor profundidad teórica', 'No orientado a desarrollar bases para niveles muy altos.', 'Mayor necesidad de asistencia para dudas complejas.'], idealFor: 'Jugadores que buscan resultados rápidos, juegan en salas con mucho recreacional, o tienen poco tiempo para estudiar.' },
+                    ruta_estructural: { name: 'Ruta Estructural 🌳', catalogUrl: 'https://drive.google.com/file/d/1coZksU3TxXd0e9mDbW4lZ328lQbIgu9c/view?usp=sharing', whatsapp: 'https://wa.link/pe94av', description: 'Construye una base sólida y una comprensión profunda para una transición efectiva a niveles medios. Enfocada en el desarrollo a largo plazo.', modules: ['Estructura con mayor profundidad', 'Enfoque completo: De cero a transición a niveles medios', 'Teoría/Práctica/Mindset.'], cons: ['Requiere más dedicación y tiempo de estudio.', 'Resultados iniciales pueden ser más lentos.', 'Requiere habilidades de estudio intermedias.'], idealFor: 'Quienes buscan una formación completa, entender el \'porqué\' de cada jugada y tienen una visión a largo plazo.' },
+                    ruta_explotativa: { name: 'Ruta Explotativa 📊', catalogUrl: 'https://drive.google.com/file/d/1YlMl5Smpf8uJ9HViTnyIo-ueEhg9Y6EZ/view?usp=sharing', whatsapp: 'https://wa.link/gn1dhd', description: 'Enfocada en identificar y explotar las debilidades de los oponentes a través del análisis de datos y patrones.', modules: ['Lectura de estadísticas (HUD)', 'Ajustes contra diferentes perfiles', 'Uso básico-intermedio de software de apoyo.'], cons: ['Menos eficaz en salas sin HUD.', 'Requiere mucha atención al detalle y análisis post-sesión.'], idealFor: 'Jugadores con acceso a datos (HUDs) o que disfrutan del análisis para encontrar y explotar los leaks de los rivales.' },
+                    micro_stake: { name: 'Torneos MTT 🏆', catalogUrl: 'https://drive.google.com/file/d/1wU0S5GuQGCB8Hrcl6R--f5K0VAqTiMpc/view?usp=sharing', whatsapp: 'https://wa.link/5qwmsb', description: 'Aprende las bases de los torneos, gestión de stack y cómo llegar a las primeras mesas de pago en buy-ins bajos.', modules: ['Fases del torneo (early, middle, late)', 'Push/fold básico y rangos de apertura', 'Manejo de la burbuja', 'Gestión de bankroll para MTT.'], cons: ['No profundiza en estrategias avanzadas de mesa final o ICM complejo.'], idealFor: 'Jugadores que se inician en MTT y buscan una base sólida para torneos de buy-in bajo (hasta 10$).' }
+                }
+            },
+            'PRO': {
+                title: 'Pack PRO',
+                price: { original: '€397', offer: '€127' },
+                colorClass: 'active-pro',
+                routes: {
+                    pro_cash_1: { name: 'Cash PRO: Opción 1 💎', catalogUrl: 'https://drive.google.com/file/d/1Oy05ncmKGglwDt3ho78-NwpuXMaDVa9E/view?usp=sharing', whatsapp: 'https://wa.link/v23hjb', description: 'La ruta fundamental para construir una base técnica inquebrantable. Perfecciona cada aspecto de tu juego para convertirte en una máquina de generar EV en cualquier mesa.', modules: ['Juego preflop con solvers', 'Dominio del juego postflop en los botes más comunes', 'Estrategia de 3-bet/4-bet pots', 'Desarrollo de un Mindset de Élite.'], cons: ['Requiere un alto compromiso con el estudio teórico.', 'La implementación de conceptos puede tomar tiempo.'], idealFor: 'Jugadores que quieren dejar cero cabos sueltos y construir una base técnica de nivel profesional para el largo plazo.' },
+                    pro_cash_2: { name: 'Cash PRO: Opción 2 🔥', catalogUrl: 'https://drive.google.com/file/d/1pT8JtfYmRFiB-C4mn3kKIrjzKEFogtH5/view?usp=sharing', whatsapp: 'https://wa.link/vd648c', description: 'Enfocada en la explotación máxima del field. Aprende a identificar y atacar las debilidades de tus rivales para imprimir dinero con ajustes letales.', modules: ['Lectura avanzada de HUDs y Pop-ups', 'Estrategias de sobre-apuesta y underbluff', 'Ataque a stats desbalanceadas', 'Guerra de ciegas explotativa.'], cons: ['Dependencia de software de tracking para máxima eficiencia.', 'Requiere adaptación constante a los jugadores.'], idealFor: 'Jugadores que disfrutan del análisis de datos y quieren maximizar su winrate inmediato explotando los errores del field.' },
+                    pro_cash_3: { name: 'Cash PRO: Opción 3 🚀', catalogUrl: 'https://drive.google.com/file/d/1kc-tW_XiZRRBz9udmfXIjafMuefcn-Pi/view?usp=sharing', whatsapp: 'https://wa.link/auicq4', description: 'La ruta para el jugador que busca escalar. Optimiza tu rendimiento, volumen y fortaleza mental para dar el salto a los siguientes límites de forma sólida y consistente.', modules: ['Optimización de sesiones multi-mesa', 'Rutinas de estudio y juego de alto rendimiento', 'Gestión avanzada de bankroll y varianza', 'Psicología y control del tilt.'], cons: ['Menos enfoque en la micro-estrategia, asume una base ya existente.', 'Requiere una disciplina y organización férreas.'], idealFor: 'Jugadores con una base técnica sólida que buscan pulir su fortaleza mental y eficiencia para escalar límites de forma profesional.' },
+                    pro_mtt: { name: 'Torneos MTT PRO 🥇', catalogUrl: 'https://drive.google.com/file/d/1vxTFdJqEf_PR3rpu3J2Efh6q-dOAX-_l/view?usp=sharing', whatsapp: 'https://wa.link/xcsdxr', description: 'Formación integral para dominar torneos de niveles medios/altos, fusionando estrategias GTO con un enfoque explotativo letal.', modules: ['ICM avanzado y Pay Jumps', 'Estrategia de burbuja y mesa final', 'Juego shortstack vs deepstack', 'Uso avanzado de HUD para explotar en MTTs.'], cons: ['Requiere alta resiliencia a la varianza.', 'Sesiones de estudio y juego más extensas.'], idealFor: 'Jugadores de torneos que buscan dar el salto a los grandes premios y dominar en los momentos más críticos.' }
+                }
+            },
+            'Elite': {
+                title: 'Pack Élite',
+                price: { original: '€1000', offer: '€497' },
+                colorClass: 'active-elite',
+                routes: {
+                    elite_total: { name: 'Acceso Total y Mentoría 👑', whatsapp: 'https://wa.link/yprigi', description: 'El servicio más completo y personalizado. Accede al 100% de nuestro contenido y recibe una mentoría intensiva con el equipo METAPOKER para diseñar tu plan de estudio, analizar tu base de datos y llevar tu juego al máximo nivel.', modules: ['Acceso a TODOS los cursos (Micro y PRO)', 'Más de 1000 horas de contenido', '26 horas de mentoría 1 a 1 con METAPOKER', 'Plan de estudio y seguimiento personalizado', 'Análisis de base de datos y leaks.'], cons: ['Requiere la máxima dedicación y compromiso.', 'Es una inversión significativa en tu carrera como jugador.'], idealFor: 'Jugadores que van en serio, no quieren dejar nada al azar y buscan el camino más rápido y efectivo para convertirse en profesionales de élite.' }
+                }
+            }
+        };
+
+        const countdownElement = document.getElementById('countdown');
+        if (countdownElement) {
+            const targetDate = new Date(new Date().getFullYear(), 7, 31, 23, 59, 59).getTime(); // Month is 0-indexed, so 7 is August
+            const interval = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+                if (distance < 0) { clearInterval(interval); countdownElement.innerHTML = "OFERTA EXPIRADA"; return; }
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                countdownElement.innerHTML = `${String(days).padStart(2, '0')}d : ${String(hours).padStart(2, '0')}h : ${String(minutes).padStart(2, '0')}m : ${String(seconds).padStart(2, '0')}s`;
+            }, 1000);
+        }
+
+        const modal = document.getElementById('purchase-modal');
+        const modalContent = document.getElementById('modal-content');
+        const modalTitle = document.getElementById('modal-title');
+        const modalPriceContainer = document.getElementById('modal-price');
+        const modalOfferText = document.getElementById('modal-offer-text');
+        const modalTabsContainer = document.getElementById('modal-tabs');
+        const modalRouteContentContainer = document.getElementById('modal-route-content');
+        const modalCtaWhatsapp = document.getElementById('modal-cta-whatsapp');
+        const modalCtaCatalog = document.getElementById('modal-cta-catalog');
+        let currentPack;
+        let currentRoute;
+
+        function openModal(packType) {
+            currentPack = packData[packType];
+            if (!currentPack) return;
+
+            modalTitle.textContent = currentPack.title;
+            modalPriceContainer.innerHTML = `
+                <div class="flex items-end justify-center space-x-2">
+                    <span class="modal-price-offer">${currentPack.price.offer}</span>
+                    <span class="modal-price-original">${currentPack.price.original}</span>
+                </div>
+            `;
+            modalTabsContainer.innerHTML = '';
+            modalRouteContentContainer.innerHTML = '';
+
+            const routesKeys = Object.keys(currentPack.routes);
+            routesKeys.forEach((routeKey, index) => {
+                const route = currentPack.routes[routeKey];
+                const button = document.createElement('button');
+                button.textContent = route.name;
+                button.className = `tab-btn text-slate-300`;
+                button.onclick = () => showRouteContent(packType, routeKey);
+                modalTabsContainer.appendChild(button);
+                if (index === 0) {
+                    currentRoute = routeKey;
+                    showRouteContent(packType, routeKey);
+                }
+            });
+
+            // Adjust button visibility for Elite pack
+            if (packType === 'Elite') {
+                modalCtaCatalog.style.display = 'none';
+            } else {
+                modalCtaCatalog.style.display = 'flex';
+            }
+
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-95', 'opacity-0');
+            modalContent.classList.add('scale-100', 'opacity-100');
+        }
+
+        function showRouteContent(packType, routeKey) {
+            currentRoute = routeKey;
+            const route = packData[packType].routes[routeKey];
+            if (!route) return;
+
+            // FIX: El selector :contains() no es un selector CSS estándar.
+            // Para resolverlo, obtenemos todos los botones y luego encontramos el que coincide con el texto.
+            const allTabs = modalTabsContainer.querySelectorAll('.tab-btn');
+            allTabs.forEach(btn => {
+                btn.classList.remove('active', currentPack.colorClass);
+            });
+            
+            // Usamos Array.from() y .find() para encontrar el botón correcto de forma segura.
+            const activeTab = Array.from(allTabs).find(btn => btn.textContent.trim() === route.name.trim());
+            
+            if (activeTab) {
+                activeTab.classList.add('active', currentPack.colorClass);
+            }
+            // FIN DE LA CORRECCIÓN
+
+            modalRouteContentContainer.innerHTML = `
+                <div class="space-y-6">
+                    <div>
+                        <p class="text-slate-300">${route.description}</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg text-white mb-2">Contenido de la Ruta:</h4>
+                        <ul class="list-none space-y-2 text-slate-200">
+                            ${route.modules.map(mod => `<li class="flex items-start"><span class="list-check">✓</span><span>${mod}</span></li>`).join('')}
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg text-white mb-2">A tener en cuenta:</h4>
+                        <ul class="list-none space-y-2 text-slate-200">
+                            ${route.cons.map(con => `<li class="flex items-start"><span class="list-check bg-red-800/10 text-red-400">✖</span><span>${con}</span></li>`).join('')}
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg text-white mb-2">Ideal para:</h4>
+                        <p class="text-slate-300">${route.idealFor}</p>
+                    </div>
+                </div>
+            `;
+            
+            // Update CTA buttons
+            modalCtaWhatsapp.href = route.whatsapp;
+            if (route.catalogUrl) {
+                modalCtaCatalog.href = route.catalogUrl;
+            }
+        }
+
+        function closeModal() {
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+            modalTabsContainer.innerHTML = '';
+            modalRouteContentContainer.innerHTML = '';
+        }
+    </script>
+</body>
+</html>
