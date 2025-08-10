@@ -1,0 +1,13 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fondo transparente -->
+  
+  <!-- Cohete -->
+  <path d="M40 16L32 4L24 16L28 20L28 44L36 44L36 20L40 16Z" fill="#3A4D67"/>
+  <path d="M28 20L24 24L20 20L24 16L28 20Z" fill="#F0B90B"/>
+  <path d="M36 20L40 24L44 20L40 16L36 20Z" fill="#F0B90B"/>
+
+  <!-- Ficha de poker con el símbolo de picas -->
+  <circle cx="32" cy="48" r="12" fill="#3A4D67"/>
+  <path d="M32 44L38 52H26L32 44Z" fill="#FFFFFF"/>
+  <path d="M32 52C35 52 37 52 38 52C38 53.5 36.5 55 32 55C27.5 55 26 53.5 26 52C27 52 29 52 32 52Z" fill="#FFFFFF"/>
+</svg>
